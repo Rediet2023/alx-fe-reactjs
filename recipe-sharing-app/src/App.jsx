@@ -7,6 +7,9 @@ import AddRecipeForm from './components/AddRecipeForm';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RecipeDetails from './components/RecipeDetails';
 import SearchBar from './components/SearchBar';
+import FavoritesList from './FavoritesList';
+import RecommendationsList from './RecommendationsList';
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -73,5 +76,24 @@ function App() {
     </Router>
   );
 }
+const App = () => {
+  return (
+    <div>
+      <h1>Recipe Sharing Application</h1>
+
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        {/* Display the list of favorite recipes */}
+        <div>
+          <FavoritesList />
+        </div>
+
+        {/* Display the recommendations */}
+        <div>
+          <RecommendationsList />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default App
