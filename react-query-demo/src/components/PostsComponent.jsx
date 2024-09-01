@@ -7,11 +7,11 @@ const fetchPosts = async () => {
 };
 
 function PostsComponent() {
-  // Using useQuery to fetch posts
-  const { data, error, isLoading, refetch } = useQuery('posts', fetchPosts);
+  // Using useQuery to fetch posts and manage states
+  const { data, isError, isLoading, refetch, error } = useQuery('posts', fetchPosts);
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>An error occurred: {error.message}</div>;
+  if (isError) return <div>An error occurred: {error.message}</div>;
 
   return (
     <div>
