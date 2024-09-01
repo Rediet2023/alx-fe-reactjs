@@ -1,9 +1,5 @@
 import { Outlet, Link } from 'react-router-dom'; // Import necessary components
 
-// Import child components if they are in separate files
-import ProfileDetails from './ProfileDetails';
-import ProfileSettings from './ProfileSettings';
-
 function Profile() {
   return (
     <div>
