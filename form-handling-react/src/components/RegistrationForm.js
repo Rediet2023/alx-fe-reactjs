@@ -1,26 +1,19 @@
 import React, { useState } from 'react';
 
 const RegistrationForm = () => {
-  // State to store form data
   const [formData, setFormData] = useState({
     username: '',
     email: '',
-    password: ''
+    password: '',
   });
 
-  // State to manage form errors
   const [errors, setErrors] = useState({});
 
-  // Handle form input change
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
-  // Validate form inputs
   const validate = () => {
     const newErrors = {};
     if (!formData.username) newErrors.username = 'Username is required';
@@ -29,17 +22,16 @@ const RegistrationForm = () => {
     return newErrors;
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validate();
-    setErrors(validationErrors);
-
-    if (Object.keys(validationErrors).length === 0) {
-      console.log('Form data submitted:', formData);
-      // Here, simulate an API call to register the user
-      // Example: api.post('/register', formData)
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
     }
+    // Simulate API request
+    console.log('Submitting form data', formData);
+    setErrors({});
   };
 
   return (
@@ -54,7 +46,6 @@ const RegistrationForm = () => {
         />
         {errors.username && <p>{errors.username}</p>}
       </div>
-
       <div>
         <label>Email:</label>
         <input
@@ -65,7 +56,6 @@ const RegistrationForm = () => {
         />
         {errors.email && <p>{errors.email}</p>}
       </div>
-
       <div>
         <label>Password:</label>
         <input
@@ -76,7 +66,6 @@ const RegistrationForm = () => {
         />
         {errors.password && <p>{errors.password}</p>}
       </div>
-
       <button type="submit">Register</button>
     </form>
   );

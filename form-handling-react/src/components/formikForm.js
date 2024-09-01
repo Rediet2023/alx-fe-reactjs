@@ -16,8 +16,7 @@ const FormikForm = () => {
       validationSchema={validationSchema}
       onSubmit={(values) => {
         console.log('Form data submitted:', values);
-        // Here, simulate an API call to register the user
-        // Example: api.post('/register', values)
+        // Simulate an API request here
       }}
     >
       {({ isSubmitting }) => (
