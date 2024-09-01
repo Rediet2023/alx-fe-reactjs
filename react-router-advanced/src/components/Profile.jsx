@@ -1,4 +1,8 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom'; // Import necessary components
+
+// Import child components if they are in separate files
+import ProfileDetails from './ProfileDetails';
+import ProfileSettings from './ProfileSettings';
 
 function Profile() {
   return (
@@ -11,7 +15,7 @@ function Profile() {
         </ul>
       </nav>
 
-      {/* The Outlet component will render the child routes */}
+      {/* Outlet renders the nested routes */}
       <Outlet />
     </div>
   );
