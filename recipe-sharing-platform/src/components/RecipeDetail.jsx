@@ -24,15 +24,15 @@ const RecipeDetail = () => {
     <div className="container mx-auto py-8">
       <h1 className="text-4xl font-bold text-center mb-8">{recipe.title}</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Recipe Image */}
+        {/* Recipe Image with Shadow */}
         <img
           src={recipe.image}
           alt={recipe.title}
-          className="w-full h-64 object-cover rounded-lg"
+          className="w-full h-64 object-cover rounded-lg shadow-lg"
         />
 
-        {/* Recipe Details */}
-        <div>
+        {/* Recipe Details with Shadow */}
+        <div className="p-6 bg-white rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold mb-4">Ingredients</h2>
           <ul className="list-disc list-inside mb-8">
             {recipe.ingredients && recipe.ingredients.map((ingredient, index) => (
