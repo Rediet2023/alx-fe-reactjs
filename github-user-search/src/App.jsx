@@ -9,5 +9,11 @@ function App() {
     </div>
   );
 }
+try {
+  const data = await fetchUserData(username);
+  setUserData(data);
+} catch (error) {
+  setError("Error: Unable to fetch user");
+}
 
 export default App
