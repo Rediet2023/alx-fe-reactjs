@@ -1,27 +1,25 @@
 import React, { useState } from "react";
-import fetchAdvancedUserData from "../services/githubService";
+import fetchUserData from "../services/githubService"; // Import the fetchUserData function
 
 const Search = () => {
-  const [username, setUsername] = useState("");
-  const [location, setLocation] = useState("");
-  const [minRepos, setMinRepos] = useState("");
-  const [userData, setUserData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [username, setUsername] = useState(""); // To capture the username input
+  const [userData, setUserData] = useState(null); // Store the fetched user data
+  const [loading, setLoading] = useState(false); // Handle the loading state
+  const [error, setError] = useState(null); // Handle any errors
 
-  // Handle form submission
+  // Handle form submission for basic search by username
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload on form submission
     setLoading(true);
-    setError(null);
+    setError(null); // Reset any existing errors
 
     try {
-      const data = await fetchAdvancedUserData(username, location, minRepos);
-      setUserData(data.items); // API returns an object with `items`
+      const data = await fetchUserData(username); // Fetch user data using the API call
+      setUserData(data); // Update the state with the fetched user data
     } catch (err) {
-      setError("Looks like we can't find the user");
+      setError("Looks like we can't find the user"); // Display error message if user not found
     } finally {
-      setLoading(false);
+      setLoading(false); // Stop the loading state after the request is finished
     }
   };
 
@@ -39,35 +37,7 @@ const Search = () => {
             type="text"
             placeholder="Enter GitHub username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
-            Location
-          </label>
-          <input
-            id="location"
-            type="text"
-            placeholder="Enter location (optional)"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="repos">
-            Minimum Repositories
-          </label>
-          <input
-            id="repos"
-            type="number"
-            placeholder="Min repositories (optional)"
-            value={minRepos}
-            onChange={(e) => setMinRepos(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)} // Update the username state on input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -84,25 +54,19 @@ const Search = () => {
       </form>
 
       <div>
-        {userData.length > 0 && (
+        {userData && (
           <div>
-            <h3 className="text-xl font-bold mb-4">Search Results:</h3>
-            {userData.map((user) => (
-              <div key={user.id} className="mb-6 p-4 border rounded">
-                <img src={user.avatar_url} alt={user.login} className="w-16 h-16 rounded-full mb-2" />
-                <h4 className="text-lg font-bold">{user.login}</h4>
-                <p>Location: {user.location || 'N/A'}</p>
-                <p>Repos: {user.public_repos}</p>
-                <a
-                  href={user.html_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500"
-                >
-                  View Profile
-                </a>
-              </div>
-            ))}
+            <img src={userData.avatar_url} alt={userData.login} className="w-16 h-16 rounded-full mb-2" />
+            <h3 className="text-lg font-bold">{userData.name || userData.login}</h3>
+            <p>Location: {userData.location || 'N/A'}</p>
+            <a
+              href={userData.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500"
+            >
+              View Profile
+            </a>
           </div>
         )}
       </div>
